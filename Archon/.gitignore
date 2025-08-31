@@ -1,0 +1,6 @@
+__pycache__
+.env
+.serena
+.claude/settings.local.json
+PRPs/local
+/logs/

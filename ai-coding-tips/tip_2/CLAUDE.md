@@ -1,0 +1,1 @@
+- Always use UV run to run a script

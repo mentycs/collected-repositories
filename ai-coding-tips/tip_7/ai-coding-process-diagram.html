@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coding Process Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            width: 100%;
+            min-height: 600px;
+            position: relative;
+        }
+
+        /* Step 1: Process Flow */
+        .step-one {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .step-one.hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 60px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.2s; }
+        .step:nth-child(2) { animation-delay: 0.4s; }
+        .step:nth-child(3) { animation-delay: 0.6s; }
+        .step:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover .step-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .step-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #667eea;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .step-description {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50px;
+            right: -40px;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #cbd5e0, #667eea);
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid #667eea;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+
+        .step:nth-child(1) .arrow { animation-delay: 0.3s; }
+        .step:nth-child(2) .arrow { animation-delay: 0.5s; }
+        .step:nth-child(3) .arrow { animation-delay: 0.7s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .step:last-child .arrow {
+            display: none;
+        }
+
+        .next-button {
+            display: block;
+            margin: 60px auto 0;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInButton 0.5s forwards 1.2s;
+        }
+        
+        @keyframes fadeInButton {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Step 2: Validation Gate */
+        .step-two {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            transition: opacity 0.5s ease;
+        }
+
+        .step-two.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .validation-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stop-sign {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.4);
+            animation: stopPulse 1s ease infinite;
+        }
+
+        @keyframes stopPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .validation-title {
+            font-size: 2.5em;
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .validation-subtitle {
+            color: #718096;
+            font-size: 1.2em;
+        }
+
+        .questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #f6f8fb 0%, #fff 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .question-title {
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .question-text {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1em;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #48bb78;
+            font-size: 20px;
+            min-width: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .execute-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .execute-text {
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .execute-button {
+            padding: 15px 50px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .execute-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .questions {
+                grid-template-columns: 1fr;
+            }
+            
+            .step {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Step 1: Process Flow -->
+        <div class="step-one" id="stepOne">
+            <h1>⏰ Spend Time Planning</h1>
+            <p class="subtitle">Thinking hard about the problem and curating a plan will ensure alignment between you and the AI</p>
+            
+            <div class="process-flow">
+                <div class="step">
+                    <div class="step-icon">📋</div>
+                    <div class="step-title">Planning</div>
+                    <div class="step-description">
+                        Define clear objectives, success criteria, and scope boundaries
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">🔍</div>
+                    <div class="step-title">Context Gathering</div>
+                    <div class="step-description">
+                        Collect docs, examples, codebase patterns, and dependencies
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">Validation Design</div>
+                    <div class="step-description">
+                        Define tests, linters, integration checks, and success metrics
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">💡</div>
+                    <div class="step-title">Prompt Crafting</div>
+                    <div class="step-description">
+                        Create comprehensive, structured instructions with all context
+                    </div>
+                </div>
+            </div>
+            
+            <button class="next-button" onclick="showValidation()">
+                Continue to Validation Checkpoint →
+            </button>
+        </div>
+        
+        <!-- Step 2: Validation Gate -->
+        <div class="step-two" id="stepTwo">
+            <button class="back-button" onclick="showProcess()">
+                ← Back to Process
+            </button>
+            
+            <div class="validation-header">
+                <div class="stop-sign">🛑</div>
+                <h2 class="validation-title">STOP! Critical Checkpoint</h2>
+                <p class="validation-subtitle">Before executing, ask yourself these essential questions</p>
+            </div>
+            
+            <div class="questions">
+                <div class="question-card">
+                    <div class="question-icon">🤔</div>
+                    <div class="question-title">Could I Complete This?</div>
+                    <div class="question-text">
+                        With this plan and context, would <span class="highlight">I personally</span> be able to complete the task?
+                        <ul class="checklist">
+                            <li><span class="check-icon">✓</span> Are requirements crystal clear?</li>
+                            <li><span class="check-icon">✓</span> Have I referenced the correct part of the codebase?</li>
+                            <li><span class="check-icon">✓</span> Have I provided all necessary context?</li>
+                            <li><span class="check-icon">✓</span> Are architecture decisions documented?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <div class="question-icon">📊</div>
+                    <div class="question-title">How Will I Verify Success?</div>
+                    <div class="question-text">
+                        Using these validation techniques, would I be <span class="highlight">certain of success</span>?
+                        <ul class="checklist">
+                            <li><span class="check-icon">✓</span> Will tests prove functionality?</li>
+                            <li><span class="check-icon">✓</span> Do linters ensure code quality?</li>
+                            <li><span class="check-icon">✓</span> Can integration tests verify the system?</li>
+                            <li><span class="check-icon">✓</span> Are success metrics measurable?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="execute-section">
+                <p class="execute-text">
+                    <strong>If both answers are YES:</strong>
+                </p>
+                <button class="execute-button">
+                    ✨ Execute with Confidence
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showValidation() {
+            document.getElementById('stepOne').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('stepTwo').classList.add('visible');
+            }, 500);
+        }
+        
+        function showProcess() {
+            document.getElementById('stepTwo').classList.remove('visible');
+            setTimeout(() => {
+                document.getElementById('stepOne').classList.remove('hidden');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
